@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "nombre": "dasd",
+      "apellidos": "wwww",
+      "documento": "12313",
+      "tipo_documento": "Tarjeta de identidad",
+      "correo": "sadad@gmail.com",
+      "direccion": "dasdadad",
+      "id": "aaa4"
+    }
+  ],
+  "docs": [
+    {
+      "id": "1",
+      "nombre": "Cédula de ciudadanía"
+    },
+    {
+      "id": "2",
+      "nombre": "Tarjeta de identidad"
+    },
+    {
+      "id": "3",
+      "nombre": "Registro civil"
+    },
+    {
+      "id": "4",
+      "nombre": "Cédula de extranjería"
+    }
+  ]
+}
