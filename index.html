@@ -17,30 +17,30 @@
       <h1 class="text-black text-2xl text-center mb-5">CREAR</h1>
       <div>
         <input id="nombre" type="text" name="nombre" id="nombre" placeholder="Ingrese su nombre"
-          class="input input-bordered w-full bg-white focus:text-black" autofocus autocomplete="off" required>
+          class="input input-bordered w-full bg-white focus:text-black" autofocus autocomplete="off">
       </div>
       <div>
         <input id="apellidos" type="text" name="apellidos" id="apellidos" placeholder="Ingrese sus apellidos"
-          class="input input-bordered w-full bg-white focus:text-black" autocomplete="off" required>
+          class="input input-bordered w-full bg-white focus:text-black" autocomplete="off">
       </div>
       <div>
         <input id="documento" type="text" name="documento" id="documento" placeholder="Ingrese su documento"
-          class="input input-bordered w-full bg-white focus:text-black" autocomplete="off" required>
+          class="input input-bordered w-full bg-white focus:text-black" autocomplete="off">
       </div>
       <div>
-        <select id="tipoDocumento" name="" class="input input-bordered w-full bg-white focus:text-black" required>
-          <option value="">Ingrese su tipo de documento</option>
+        <select id="tipoDocumento" class="input input-bordered w-full bg-white focus:text-black">
+          <option>Ingrese su tipo de documento</option>
         </select>
       </div>
       <div>
-        <input id="correo" type="email" name="correo" id="correo" placeholder="Ingrese su correo"
-          class="input input-bordered w-full bg-white focus:text-black" autocomplete="off" required>
+        <input id="correo" type="text" name="correo" id="correo" placeholder="Ingrese su correo"
+          class="input input-bordered w-full bg-white focus:text-black" autocomplete="off">
       </div>
       <div>
         <input id="direccion" type="text" name="direccion" id="direccion" placeholder="Ingrese su dirección"
-          class="input input-bordered w-full bg-white focus:text-black" autocomplete="off" required>
+          class="input input-bordered w-full bg-white focus:text-black" autocomplete="off">
       </div>
-      <button type="submit" class="btn w-full text-white">Enviar</button>
+      <button type="submit" class="btn w-full bg-black text-white">Enviar</button>
     </form>
   </div>
 
@@ -74,7 +74,7 @@
   </div>
 
   <!-- Validación del formulario -->
-  <script src="UserCRUD.js"></script>
+  <script src="scripts/UserCRUD.js" type="module"></script>
 
 </body>
 

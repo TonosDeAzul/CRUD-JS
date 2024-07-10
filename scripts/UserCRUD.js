@@ -1,3 +1,7 @@
+import { validarFormulario } from "./validationInputs.js";
+import { modalEliminar } from "./popups.js";
+
+
 const _d = document;
 
 // Formulario
@@ -27,23 +31,23 @@ const evitarNumeros = (input) => {
       (event.charCode === 13 || event.charCode === 32) || 
       (event.charCode >= 192 && event.charCode <= 255)
       )`
-    );
-  };
-  
-  // Evitar escribir letras en el input
-  const evitarLetras = (input) => {
-    input.setAttribute(
-      "onkeypress",
-      "return (event.charCode >= 48 && event.charCode <= 57 || event.charCode === 13)"
-    );
-  };
-  
-  evitarLetras(_documento);
-  evitarNumeros(_nombre);
-  evitarNumeros(_apellidos);
-  
-  // Cargar tipos de documentos
-  fetch("http://127.0.0.1:3000/docs")
+  );
+};
+
+// Evitar escribir letras en el input
+const evitarLetras = (input) => {
+  input.setAttribute(
+    "onkeypress",
+    "return (event.charCode >= 48 && event.charCode <= 57 || event.charCode === 13)"
+  );
+};
+
+evitarLetras(_documento);
+evitarNumeros(_nombre);
+evitarNumeros(_apellidos);
+
+// Cargar tipos de documentos
+fetch("http://127.0.0.1:3000/docs")
   .then((response) => response.json())
   .then((data) => {
     data.forEach((element) => {
@@ -52,27 +56,27 @@ const evitarNumeros = (input) => {
       _tipoDocumento.appendChild(_option);
     });
   });
-  
-  
-  // Crear tabla para almacenar usuarios
+
+
+// Crear tabla para almacenar usuarios
 const crearTablaUsuario = (element) => {
   const _tr = _d.createElement("tr");
   _tr.classList.add("hover", "text-center")
   _tbody.appendChild(_tr);
-  
+
   const _thId = _d.createElement("th");
   _thId.textContent = element.id;
   _thId.setAttribute("value", element.id);
   _tr.appendChild(_thId);
-  
+
   const _thNombre = _d.createElement("th");
   _thNombre.textContent = element.nombre;
   _tr.appendChild(_thNombre);
-  
+
   const _thApellidos = _d.createElement("th");
   _thApellidos.textContent = element.apellidos;
   _tr.appendChild(_thApellidos);
-  
+
   const _thDocumento = _d.createElement("th");
   _thDocumento.textContent = element.documento;
   _tr.appendChild(_thDocumento);
@@ -80,23 +84,23 @@ const crearTablaUsuario = (element) => {
   const _thTipoDocumento = _d.createElement("th");
   _thTipoDocumento.textContent = element.tipo_documento;
   _tr.appendChild(_thTipoDocumento);
-  
+
   const _thCorreo = _d.createElement("th");
   _thCorreo.textContent = element.correo;
   _tr.appendChild(_thCorreo);
-  
+
   const _thDireccion = _d.createElement("th");
   _thDireccion.textContent = element.direccion;
   _tr.appendChild(_thDireccion);
-  
+
   const _thAcciones = _d.createElement("th");
   _tr.appendChild(_thAcciones);
-  
+
   const _buttonEliminar = _d.createElement("button");
   _buttonEliminar.classList.add("fa-solid", "fa-trash", "mr-2");
   _buttonEliminar.setAttribute('data-id', element.id);
   _thAcciones.appendChild(_buttonEliminar);
-  
+
   const _buttonEditar = _d.createElement("button");
   _buttonEditar.classList.add("fa-solid", "fa-pen");
   _buttonEditar.setAttribute('data-id', element.id);
@@ -105,11 +109,10 @@ const crearTablaUsuario = (element) => {
 // Variable para almacenar el ID del usuario que se está editando
 let editingUserId = null;
 
-
 // CRUD
 
 // Read
-const readUser = () => {
+export const readUser = () => {
   // Limpiar la tabla antes de cargar los datos
   _tbody.innerHTML = '';
   // Hacemos la petición a la tabla usuarios
@@ -128,24 +131,6 @@ const readUser = () => {
     });
 };
 
-
-// Delete
-const deleteUser = (id) => {
-  // Hacemos una petición para eliminar un usuario específico
-  fetch(`http://127.0.0.1:3000/users/${id}`, {
-    // Especificamos que el método de la petición es DELETE
-    method: "DELETE",
-  })
-  // Parseamos la respuesta a JSON
-  .then(response => response.json())
-  // Procesamos la respuesta
-  .then(() => {
-    // Llamamos a la función para leer y actualizar la lista de usuarios
-    readUser();
-  });
-};
-
-
 // Create
 const createUser = (data) => {
   // Hacemos una petición para crear un nuevo usuario
@@ -159,15 +144,15 @@ const createUser = (data) => {
       "Content-type": "application/json; charset=UTF-8",
     },
   })
-  // Parseamos la respuesta a JSON
-  .then((response) => response.json())
-  // Procesamos la respuesta
-  .then(() => {
-    // Llamamos a la función para leer y actualizar la lista de usuarios
-    readUser();
-    // Resetear el formulario después de crear el usuario
-    _form.reset(); 
-  });
+    // Parseamos la respuesta a JSON
+    .then((response) => response.json())
+    // Procesamos la respuesta
+    .then(() => {
+      // Llamamos a la función para leer y actualizar la lista de usuarios
+      readUser();
+      // Resetear el formulario después de crear el usuario
+      _form.reset();
+    });
 };
 
 // Update  
@@ -183,24 +168,32 @@ const updateUser = (id, data) => {
       'Content-type': 'application/json; charset=UTF-8',
     }
   })
-  // Parseamos la respuesta a JSON
-  .then((response) => response.json())
-  // Procesamos la respuesta
-  .then(() => {
-    // Llamamos a la función para leer y actualizar la lista de usuarios
-    readUser();
-    // Resetear el formulario después de actualizar el usuario
-    _form.reset();
-    // Resetear la variable de edición
-    editingUserId = null;
-  });
+    // Parseamos la respuesta a JSON
+    .then((response) => response.json())
+    // Procesamos la respuesta
+    .then(() => {
+      // Llamamos a la función para leer y actualizar la lista de usuarios
+      readUser();
+      // Resetear el formulario después de actualizar el usuario
+      _form.reset();
+      // Resetear la variable de edición
+      editingUserId = null;
+    });
 };
+
 
 // Evento submit del formulario
 _form.addEventListener("submit", (event) => {
   // Prevenimos el comportamiento por defecto del formulario (recargar la página)
   event.preventDefault();
-  
+
+  // Validar el formulario
+  const formularioValido = validarFormulario();
+  if (!formularioValido) {
+    // Detener la ejecución si el formulario no es válido
+    return;
+  }
+
   // Creamos un objeto con los datos del formulario
   const data = {
     nombre: _nombre.value,
@@ -210,7 +203,7 @@ _form.addEventListener("submit", (event) => {
     correo: _correo.value,
     direccion: _direccion.value,
   };
-  
+
   // Si estamos editando un usuario existente
   if (editingUserId) {
     // Actualizamos el usuario
@@ -219,6 +212,7 @@ _form.addEventListener("submit", (event) => {
     // Creamos un nuevo usuario
     createUser(data);
   }
+
 });
 
 // Agregar eventos a los botones
@@ -231,7 +225,8 @@ const _addEventListeners = () => {
   // Asignamos el evento click a cada botón de eliminar
   deleteButtons.forEach(button => {
     const id = button.getAttribute('data-id'); // Obtenemos el ID del usuario
-    button.addEventListener('click', () => deleteUser(id)); // Asignamos el evento click para eliminar el usuario
+    button.addEventListener("click", () => modalEliminar(id));
+    // button.addEventListener('click', () => deleteUser(id)); // Asignamos el evento click para eliminar el usuario
   });
 
   // Asignamos el evento click a cada botón de editar
@@ -250,6 +245,7 @@ const _addEventListeners = () => {
           _correo.value = data.correo;
           _direccion.value = data.direccion;
           editingUserId = data.id; // Almacenamos el ID del usuario que se está editando
+          console.log(editingUserId);
         });
     });
   });

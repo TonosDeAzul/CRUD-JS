@@ -1,15 +1,5 @@
 {
-  "users": [
-    {
-      "nombre": "dasd",
-      "apellidos": "wwww",
-      "documento": "12313",
-      "tipo_documento": "Tarjeta de identidad",
-      "correo": "sadad@gmail.com",
-      "direccion": "dasdadad",
-      "id": "aaa4"
-    }
-  ],
+  "users": [],
   "docs": [
     {
       "id": "1",
